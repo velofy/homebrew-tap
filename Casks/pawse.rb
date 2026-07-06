@@ -8,7 +8,7 @@ cask "pawse" do
   homepage "https://github.com/anishfyi/pawse"
 
   depends_on arch: :arm64
-  depends_on macos: ">= :catalina"
+  depends_on macos: :catalina
 
   app "Pawse.app"
 
