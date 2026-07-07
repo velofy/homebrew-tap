@@ -1,13 +1,12 @@
 cask "pawse" do
   version "0.2.4"
-  sha256 "e3298b5bde1066a134a385bb7a69b07703e2eb15019977de397a6453fbfe471d"
+  sha256 "4a8b50fe3efaea89d60a84976c7f766b66f1af43bdb57321eacc364d175794e4"
 
-  url "https://github.com/anishfyi/pawse/releases/download/v#{version}/Pawse_#{version}_aarch64.dmg"
+  url "https://github.com/anishfyi/pawse/releases/download/v#{version}/Pawse_#{version}_universal.dmg"
   name "Pawse"
   desc "Pomeranian that makes you take breaks"
   homepage "https://github.com/anishfyi/pawse"
 
-  depends_on arch: :arm64
   depends_on macos: :catalina
 
   app "Pawse.app"
