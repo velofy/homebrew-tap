@@ -1,6 +1,6 @@
 cask "pawse" do
-  version "0.2.4"
-  sha256 "4a8b50fe3efaea89d60a84976c7f766b66f1af43bdb57321eacc364d175794e4"
+  version "0.2.5"
+  sha256 "ea43e2cda18409d2309efb47fac64e829acc79ad171de502aae5aabcdca71d37"
 
   url "https://github.com/anishfyi/pawse/releases/download/v#{version}/Pawse_#{version}_universal.dmg"
   name "Pawse"
