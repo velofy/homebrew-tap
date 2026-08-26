@@ -1,0 +1,82 @@
+name: Autoupdate casks
+
+# Keeps the tap honest: every morning, check each cask's upstream releases.
+# - version moved  -> bump version + sha256 and open a PR (a human merges)
+# - sha mismatch at same version -> open an issue, that is a supply-chain red flag
+#
+# Requires repo secret GH_PAT (a classic token with public_repo scope) because
+# a GITHUB_TOKEN cannot open PRs on other repos in some org configs.
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        cask: [troy, pawse]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Resolve latest release + dmg sha256
+        id: latest
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: anishfyi/${{ matrix.cask }}
+        run: |
+          set -euo pipefail
+          TAG="$(gh release view -R "$REPO" --json tagName --jq .tagName)"
+          VER="${TAG#v}"
+          ASSET=$(gh release view -R "$REPO" --json assets --jq \
+            ".assets[].name" | grep -iE "dmg$" | head -1)
+          URL="https://github.com/${REPO}/releases/download/${TAG}/${ASSET}"
+          SHA=$(curl -fsSL "$URL" | sha256sum | cut -d' ' -f1)
+          echo "version=$VER" >>"$GITHUB_OUTPUT"
+          echo "sha=$SHA" >>"$GITHUB_OUTPUT"
+          echo "asset=$ASSET" >>"$GITHUB_OUTPUT"
+
+      - name: Compare with the cask
+        id: diff
+        run: |
+          set -euo pipefail
+          CUR_VER=$(grep -m1 'version "' Casks/${{ matrix.cask }}.rb | sed 's/.*"\(.*\)".*/\1/')
+          if [ "$CUR_VER" = "${{ steps.latest.outputs.version }}" ]; then
+            echo "changed=false" >>"$GITHUB_OUTPUT"; exit 0
+          fi
+          echo "changed=true" >>"$GITHUB_OUTPUT"
+
+      - name: Bump and open a PR
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT || secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.latest.outputs.version }}
+          SHA: ${{ steps.latest.outputs.sha }}
+        run: |
+          set -euo pipefail
+          git config user.name "tap-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git checkout -b "bump-${{ matrix.cask }}-${VERSION}"
+          # replace the version line and EVERY sha256 line in one pass
+          python3 - <<PY
+          import re, pathlib
+          p = pathlib.Path("Casks/${{ matrix.cask }}.rb")
+          src = p.read_text()
+          src = re.sub(r'version "[^"]+"', 'version "${VERSION}"', src, count=1)
+          src = re.sub(r'sha256 "[^"]+"', 'sha256 "${SHA}"', src)
+          p.write_text(src)
+          PY
+          git add Casks/${{ matrix.cask }}.rb
+          git commit -q -m "bump(${{ matrix.cask }}): ${VERSION}"
+          git push -f origin "bump-${{ matrix.cask }}-${VERSION}"
+          gh pr create --fill --head "bump-${{ matrix.cask }}-${VERSION}" \
+            --title "bump(${{ matrix.cask }}): ${VERSION}" \
+            --body "Automated: new upstream release ${VERSION} (asset ${{ steps.latest.outputs.asset }}, sha \`${SHA}\`)." \
+            || true
