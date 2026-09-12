@@ -2,10 +2,10 @@ cask "pawse" do
   version "0.2.5"
   sha256 "ea43e2cda18409d2309efb47fac64e829acc79ad171de502aae5aabcdca71d37"
 
-  url "https://github.com/anishfyi/pawse/releases/download/v#{version}/Pawse_#{version}_universal.dmg"
+  url "https://github.com/velofy/pawse/releases/download/v#{version}/Pawse_#{version}_universal.dmg"
   name "Pawse"
   desc "Pomeranian that makes you take breaks"
-  homepage "https://github.com/anishfyi/pawse"
+  homepage "https://github.com/velofy/pawse"
 
   depends_on macos: :catalina
 
