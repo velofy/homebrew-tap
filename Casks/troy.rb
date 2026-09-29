@@ -18,7 +18,7 @@ cask "troy" do
   desc "Browser an agent can actually read and drive"
   homepage "https://velofy.co/troy/"
 
-  depends_on macos: :big_sur
+  depends_on macos: :monterey
 
   app "Troy.app"
 
