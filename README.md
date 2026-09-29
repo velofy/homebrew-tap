@@ -31,7 +31,7 @@ to. [Source](https://github.com/velofy/troy) · [Docs](https://velofy.co/troy/).
 brew install --cask troy
 ```
 
-Apple silicon and Intel, picked automatically.
+Apple silicon and Intel, picked automatically. Needs macOS 12 (Monterey) or later.
 
 ## Pawse
 
