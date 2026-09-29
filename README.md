@@ -1,9 +1,9 @@
-# anishfyi/homebrew-tap
+# velofy/homebrew-tap
 
 Homebrew tap for my apps.
 
 ```sh
-brew tap anishfyi/tap
+brew tap velofy/tap
 ```
 
 ## Trusting the tap
@@ -12,11 +12,11 @@ Homebrew asks you to trust a third-party tap before it will load a cask from
 it. That gate is deliberate and it applies to everything here:
 
 ```sh
-brew trust --cask anishfyi/tap/troy   # just this one cask
-brew trust anishfyi/tap               # or the whole tap
+brew trust --cask velofy/tap/troy   # just this one cask
+brew trust velofy/tap               # or the whole tap
 ```
 
-Both of these casks install apps that are signed but not notarised by Apple,
+Both of these casks install apps that are ad-hoc signed but not notarised by Apple,
 and both clear the quarantine flag after installing so the first launch works
 without the Control-click dance. That is the trade worth being explicit about:
 you are trusting the source directly rather than trusting Apple's review of it.
@@ -42,8 +42,7 @@ The pomeranian that makes you take breaks.
 brew install --cask pawse
 ```
 
-Apple silicon only for now; the release ships an `aarch64` DMG. Intel and
-universal builds will follow from the app's CI release workflow.
+Apple silicon and Intel, from one universal DMG. Needs macOS 11 (Big Sur) or later.
 
 ## Updating
 
