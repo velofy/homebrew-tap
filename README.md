@@ -25,7 +25,7 @@ you are trusting the source directly rather than trusting Apple's review of it.
 
 A browser an agent can actually read and drive. Real Chromium under its own
 chrome, with refusals enforced in code and a debugging port an agent can attach
-to. [Source](https://github.com/anishfyi/troy) · [Site](https://anishfyi.com/troy).
+to. [Source](https://github.com/velofy/troy) · [Docs](https://velofy.co/troy/).
 
 ```sh
 brew install --cask troy
@@ -36,7 +36,7 @@ Apple silicon and Intel, picked automatically.
 ## Pawse
 
 The pomeranian that makes you take breaks.
-[Source](https://github.com/anishfyi/pawse) · [Site](https://anishfyi.github.io/pawse/).
+[Source](https://github.com/velofy/pawse) · [Docs](https://velofy.co/pawse/).
 
 ```sh
 brew install --cask pawse

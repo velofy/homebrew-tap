@@ -5,7 +5,7 @@ cask "pawse" do
   url "https://github.com/velofy/pawse/releases/download/v#{version}/Pawse_#{version}_universal.dmg"
   name "Pawse"
   desc "Pomeranian that makes you take breaks"
-  homepage "https://github.com/velofy/pawse"
+  homepage "https://velofy.co/pawse/"
 
   depends_on macos: :catalina
 

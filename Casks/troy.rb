@@ -16,7 +16,7 @@ cask "troy" do
 
   name "Troy"
   desc "Browser an agent can actually read and drive"
-  homepage "https://anishfyi.com/troy"
+  homepage "https://velofy.co/troy/"
 
   depends_on macos: :big_sur
 
