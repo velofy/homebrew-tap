@@ -7,7 +7,7 @@ cask "pawse" do
   desc "Pomeranian that makes you take breaks"
   homepage "https://velofy.co/pawse/"
 
-  depends_on macos: :big_sur
+  depends_on :macos
 
   app "Pawse.app"
 
