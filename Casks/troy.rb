@@ -4,14 +4,12 @@ cask "troy" do
   on_arm do
     sha256 "3904cc44554e4e5103cecc5d02f6a72fe01d528ebfb4d537bbea249198c73a1f"
 
-    url "https://github.com/velofy/troy/releases/download/v#{version}/Troy-mac-arm64.dmg",
-        verified: "github.com/velofy/troy/"
+    url "https://github.com/velofy/troy/releases/download/v#{version}/Troy-mac-arm64.dmg"
   end
   on_intel do
     sha256 "d290878d3881c7420dabaf2cab752e6eae2a0657555c1e0b216033fb518ba812"
 
-    url "https://github.com/velofy/troy/releases/download/v#{version}/Troy-mac-x64.dmg",
-        verified: "github.com/velofy/troy/"
+    url "https://github.com/velofy/troy/releases/download/v#{version}/Troy-mac-x64.dmg"
   end
 
   name "Troy"
